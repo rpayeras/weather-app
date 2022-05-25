@@ -1,0 +1,10 @@
+.forecast__hourlylist {
+  display: flex;
+  flex-wrap: nowrap;
+  list-style: none;
+  overflow-x: scroll;
+  gap: 2rem;
+  text-align: center;
+  padding: 0;
+  margin-bottom: 3rem;
+}

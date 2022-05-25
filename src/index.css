@@ -5,8 +5,9 @@ body {
 
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  padding: 1rem;
   font-size: 1.2rem;
+  max-width: 640px;
+  margin: 0 auto;
 }
 
 header {
@@ -16,21 +17,22 @@ header {
   margin-bottom: 1rem;
 }
 
-.forecast__current {
-  display: grid;
-  place-content: center;
-  height: 50vh;
+.layout {
+  padding: 1rem;
+  margin: 0 auto;
+  color: white;
+  font-weight: bold;
 }
 
-.forecast__daily--list li {
-  display: flex;
-  justify-content: space-between;
+.layout.day {
+  background: rgb(255, 255, 255);
+  background: linear-gradient(
+    0deg,
+    rgba(255, 255, 255, 1) 0%,
+    rgba(135, 206, 235, 1) 100%
+  );
 }
-.forecast__hourly--list {
-  display: flex;
-  flex-wrap: nowrap;
-  list-style: none;
-  overflow-x: scroll;
-  gap: 16px;
-  text-align: center;
+
+.layout.night {
+  background-color: #2a2a35;
 }

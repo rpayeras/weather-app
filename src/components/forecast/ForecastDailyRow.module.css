@@ -1,0 +1,8 @@
+.forecast__dailyrow {
+  display: flex;
+  justify-content: space-between;
+}
+.forecast__dailyrow div {
+  display: flex;
+  align-items: center;
+}
