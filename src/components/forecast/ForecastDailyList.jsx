@@ -1,5 +1,6 @@
 import React from "react";
 import { ForecastDailyRow } from "./ForecastDailyRow";
+import PropTypes from "prop-types";
 
 import styles from "./ForecastDailyList.module.css";
 
@@ -17,4 +18,8 @@ export const ForecastDailyList = ({ data }) => {
       )}
     </section>
   );
+};
+
+ForecastDailyList.propTypes = {
+  data: PropTypes.array.isRequired,
 };

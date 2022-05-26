@@ -1,5 +1,6 @@
 import React from "react";
 import styles from "./ForecastDailyRow.module.css";
+import PropTypes from "prop-types";
 
 export const ForecastDailyRow = ({ icon, text, date, maxTempC, minTempC }) => {
   return (
@@ -13,4 +14,12 @@ export const ForecastDailyRow = ({ icon, text, date, maxTempC, minTempC }) => {
       </div>
     </li>
   );
+};
+
+ForecastDailyRow.propTypes = {
+  icon: PropTypes.string.isRequired,
+  text: PropTypes.string.isRequired,
+  date: PropTypes.string.isRequired,
+  maxTempC: PropTypes.number.isRequired,
+  minTempC: PropTypes.number.isRequired,
 };

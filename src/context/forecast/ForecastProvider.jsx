@@ -1,39 +1,55 @@
-import { useCallback, useEffect, useReducer } from "react";
+import { useEffect, useReducer } from "react";
 import Weather from "../../services/api/Weather";
 import { ForecastContext } from "./ForecastContext";
 import { ForecastActionTypes, forecastReducer } from "./forecastReducer";
 
 const INITIAL_STATE = {
-  locations: [],
+  location: "",
   hourly: [],
   daily: [],
   current: {},
+  loading: false,
 };
 
 const weather = new Weather();
 
 export const ForecastProvider = ({ children }) => {
   const [state, dispatch] = useReducer(forecastReducer, INITIAL_STATE);
-  const { locations, forecast } = state;
+  const { location } = state;
 
   //Actions
-  const refreshLocations = async () => {
-    if (locations.length === 0) {
+  const refreshlocation = async (location = null) => {
+    if (!location) {
       try {
-        const data = await weather.getLocationByIp();
-        dispatch({ type: ForecastActionTypes.ADD_LOCATION, payload: [data] });
+        const { coords } = await weather.getLocation();
+
+        if (coords) {
+          const { latitude, longitude } = coords;
+          const listLocations = await weather.getAutocompleteLocation(
+            `${latitude},${longitude}`
+          );
+          location = listLocations[0];
+        } else {
+          location = await weather.getLocationByIp();
+        }
       } catch (err) {
         console.log(err);
       }
     }
+
+    dispatch({ type: ForecastActionTypes.SET_LOCATION, payload: location });
   };
 
   const getForecast = async () => {
-    const { city } = locations[0];
+    setLoading(true);
 
-    const data = await weather.getForecast(city);
+    const data = await weather.getForecast(`${location.lat}, ${location.lon}`);
 
-    const { current, forecast } = data;
+    console.log(data);
+
+    const { current, forecast, error } = data;
+
+    if (error) return console.log(error);
 
     const dailyForecast = weather.getFormatDailyForecast(forecast);
     const currentForecast = weather.getFormatCurrentForecast(current);
@@ -53,24 +69,36 @@ export const ForecastProvider = ({ children }) => {
       type: ForecastActionTypes.SET_HOURLY,
       payload: hourlyForecast,
     });
+
+    setLoading(false);
+  };
+
+  const setLoading = (loading) => {
+    dispatch({ type: ForecastActionTypes.SET_LOADING, payload: loading });
+  };
+
+  const getAutocompleteLocation = async (city = "") => {
+    const locations = await weather.getAutocompleteLocation(city);
+    return locations;
   };
 
   useEffect(() => {
-    refreshLocations();
+    refreshlocation();
   }, []);
 
   useEffect(() => {
-    if (locations.length > 0) {
+    if (location) {
       getForecast();
     }
-  }, [locations]);
+  }, [location]);
 
   return (
     <ForecastContext.Provider
       value={{
         ...state,
         getForecast,
-        refreshLocations,
+        refreshlocation,
+        getAutocompleteLocation,
       }}
     >
       {children}

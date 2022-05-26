@@ -1,5 +1,6 @@
 import { ForecastHourlyCol } from "./ForecastHourlyCol";
 import styles from "./ForecastHourlyList.module.css";
+import PropTypes from "prop-types";
 
 export const ForecastHourlyList = ({ data }) => {
   return (
@@ -11,4 +12,8 @@ export const ForecastHourlyList = ({ data }) => {
       </ul>
     </section>
   );
+};
+
+ForecastHourlyList.propTypes = {
+  data: PropTypes.array.isRequired,
 };

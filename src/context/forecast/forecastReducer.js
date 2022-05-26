@@ -2,7 +2,8 @@ export const ForecastActionTypes = {
   SET_CURRENT: "[Forecast] Set current",
   SET_HOURLY: "[Forecast] Set hourly",
   SET_DAILY: "[Forecast] Set daily",
-  ADD_LOCATION: "[Forecast] Add Location",
+  SET_LOCATION: "[Forecast] Add Location",
+  SET_LOADING: "[Forecast] Loading",
 };
 
 export const forecastReducer = (state, action) => {
@@ -22,10 +23,15 @@ export const forecastReducer = (state, action) => {
         ...state,
         hourly: action.payload,
       };
-    case ForecastActionTypes.ADD_LOCATION:
+    case ForecastActionTypes.SET_LOCATION:
       return {
         ...state,
-        locations: [...state.locations, ...action.payload],
+        location: action.payload,
+      };
+    case ForecastActionTypes.SET_LOADING:
+      return {
+        ...state,
+        loading: action.payload,
       };
     default:
       return state;
