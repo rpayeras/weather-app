@@ -7,10 +7,14 @@ header {
 
 .header__title {
   cursor: pointer;
+  padding: 5px;
+  border: 1px solid white;
+  border-radius: 5px;
 }
 
 .header__title:hover {
-  opacity: 0.8;
+  color: black;
+  background-color: white;
 }
 .header__list {
   padding: 0;
@@ -35,7 +39,7 @@ header {
   transition: all 0.3s ease-in-out;
 }
 
-.header__input .header__list li {
+.header__list li {
   padding: 5px;
   color: black;
   font-weight: normal;
