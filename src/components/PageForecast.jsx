@@ -17,7 +17,6 @@ export const PageForecast = () => {
         {!current ? <div>Loading...</div> : <ForecastNow data={current} />}
         {!daily ? <div>Loading...</div> : <ForecastDailyList data={daily} />}
         {!hourly ? <div>Loading...</div> : <ForecastHourlyList data={hourly} />}
-        <div style={{ height: "100vh" }}></div>
       </div>
     </main>
   );
