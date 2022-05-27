@@ -10,7 +10,7 @@ export const ForecastDailyRow = ({ icon, text, date, maxTempC, minTempC }) => {
       </div>
       <div>{date}</div>
       <div>
-        {Math.trunc(maxTempC)}º / {Math.trunc(minTempC)}º
+        {maxTempC}º / {minTempC}º
       </div>
     </li>
   );
